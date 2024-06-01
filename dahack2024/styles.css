@@ -1,0 +1,95 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 1em 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+nav ul {
+    list-style: none;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.section {
+    padding: 100px 20px;
+    text-align: center;
+    min-height: 100vh; /* Ensure each section takes up full viewport height */
+}
+
+#home {
+    background: url('hero-image.jpg') no-repeat center center/cover; /* Add your hero image */
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#home .content {
+    max-width: 600px;
+}
+
+#home h1 {
+    font-size: 2.5em;
+}
+
+#home p {
+    font-size: 1.2em;
+    margin: 20px 0;
+}
+
+.btn {
+    display: inline-block;
+    background: #e8491d;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+#about, #services, #contact {
+    background: #f4f4f4;
+}
+
+#about h2, #services h2, #contact h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
