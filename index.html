@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Helper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(18, 7, 46); /* Set the background color to dark purple */
+            color: white; /* Set the text color to white for better contrast */
+            display: flex;
+            justify-content: flex-start; /* Align content to the left */
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0 3rem; /* Add some padding to the left and right */
+        }
+        .video-container {
+            position: relative;
+            width: 70%; 
+            height: 0;
+            padding-bottom: 45%; 
+            margin-right: auto; 
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        .controls button {
+            font-size: 1rem;
+            padding: 10px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <div id="player"></div> <!-- This is where the YouTube player will be embedded -->
+    </div>
+    <div class="controls">
+        <input type="text" id="inputValue" placeholder="Enter a value">
+        <button onclick="submitValue()">Submit</button>
+    </div>
+
+    <!-- Load the IFrame Player API code asynchronously. -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script>
+        let player;
+        let stoppedTime = 0;
+
+        // This function creates an <iframe> (and YouTube player)
+        // after the API code downloads.
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '390',
+                width: '640',
+                videoId: 'BDqvzFY72mg',
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        // The API will call this function when the video player is ready.
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        // Function to handle state changes
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PAUSED) {
+                // Save the current time when the video is paused
+                stoppedTime = player.getCurrentTime();
+            } else if (event.data === YT.PlayerState.PLAYING && stoppedTime > 0) {
+                // Resume from the stopped time when the video is played
+                player.seekTo(stoppedTime, true);
+                stoppedTime = 0; // Reset the stopped time
+            }
+        }
+
+        // Function to check the value and stop the video
+        function checkValueAndStopVideo(value) {
+            if (value === 1) { // Change 1 to any value you want to trigger the stop
+                player.pauseVideo();
+            }
+        }
+
+        // Function to get the value from the input field and check it
+        function submitValue() {
+            const value = parseInt(document.getElementById('inputValue').value);
+            checkValueAndStopVideo(value);
+        }
+    </script>
+</body>
+</html>
